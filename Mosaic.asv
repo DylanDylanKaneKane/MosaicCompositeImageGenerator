@@ -1,0 +1,17 @@
+function [cropped_image] = cropper(image, size_x, size_y)
+
+
+cropped_image = imcrop(image, [x/2, y/2, size_x, size_y]);
+end
+
+function [smoothed_image] = smoother(image)
+[a,b] = size(image);
+smoothed_image = imgaussfilt(image, [a/100, b/100]);
+end
+
+function [mosaic_ready_image] = mosaic(image, size_x, size_y)
+
+image = smoother(image, size_x, size_y);
+mosaic_ready_image = cropper(image);
+end
+
