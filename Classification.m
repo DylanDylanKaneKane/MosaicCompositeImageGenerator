@@ -32,6 +32,7 @@ function classification = Classification
         
         %------------------%
         
+        createBagOfFeatures(test_img, test_image_directory)
         if is_natural(most_close_image) == true
             classification = 'natural';
         else 
