@@ -4,7 +4,7 @@
 %of each channel.
 function [first_channel, second_channel, third_channel] = average_image(image)
     
-    incrementer = 1;
+    incrementer = 8;
     %the following variables will hold the average value computed for each
     %channel of the image. 
     first_channel = int32(0); %average of (;,;,1)
@@ -14,9 +14,9 @@ function [first_channel, second_channel, third_channel] = average_image(image)
     img_dim = size(image); %This gives the dimensions of the image
     pixels = img_dim(1) * img_dim(2); %Multiples the width by the height
 
-    first_channel = avg(1, pixels, image) / pixels * incrementer;
-    second_channel = avg(pixels, pixels*2, image) / pixels * incrementer;
-    third_channel = avg(pixels*2, pixels*3, image) / pixels * incrementer;
+    first_channel = avg(1, pixels, image) / pixels;
+    second_channel = avg(pixels, pixels*2, image) / pixels;
+    third_channel = avg(pixels*2, pixels*3, image) / pixels;
     
     %computes average of a given layer. Matlab matrices can be index using
     %one number, for a 5x5 image the first layer of the image will be found

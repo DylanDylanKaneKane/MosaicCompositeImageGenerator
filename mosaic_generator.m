@@ -4,7 +4,10 @@ function mosaic_generator(tiles_x, tiles_y, image)
     directory = dir(image_directory);
     directory(1) = [];
     directory(1) = [];
-    test_image_colours = all_image_rgb(directory, image_directory);
+
+    tic
+    test_image_colours = csvread('imagedata.txt');
+    toc
     
     img = imread(image);
     pixels = size(img);
@@ -21,7 +24,6 @@ function mosaic_generator(tiles_x, tiles_y, image)
     list_of_images = zeros([tiles_x tiles_y]);
     
     new_image = zeros(section_width * tiles_x, section_height * tiles_y, 3);
-    
     for i = 0 : tiles_y - 1
         
         for j = 0 : tiles_x - 1
@@ -37,7 +39,8 @@ function mosaic_generator(tiles_x, tiles_y, image)
             closest_image = '';
             [r,g,b] = average_image(tile);
             for avg = 1:3:length(test_image_colours)
-                sim = abs(r - test_image_colours(avg)) + abs(g - test_image_colours(avg+1)) + abs(b - test_image_colours(avg+2));
+                %sim = abs((r - test_image_colours(avg)) + abs(g - test_image_colours(avg+1)) + abs(b - test_image_colours(avg+2));
+                sim = abs((r - test_image_colours(avg))) + abs((g - test_image_colours(avg+1))) + abs((b - test_image_colours(avg+2)));
                 if sim < closest
                     closest = sim;
                     closest_image = strcat(image_directory, directory(ceil(avg/3)).name);
@@ -48,6 +51,8 @@ function mosaic_generator(tiles_x, tiles_y, image)
             new_image(x1:x2, y1:y2, :) = closest_img;
         end
     end
-    imshow(new_image/255);
+    new_image = new_image/255;
+    imshow(new_image);
+    imwrite(new_image, 'testimage.png');
     toc
 end
