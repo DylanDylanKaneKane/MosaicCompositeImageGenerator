@@ -1,13 +1,33 @@
-function imageclassifier = image_classifier
+function image_classifier (is_natural) = image_classifier (image_directory)
 
 setTestDir = fullfile('Image','training');
-setDir = fullfile('Image', 'test');
-imds = imageDataStore(setDir, 'includeSubfolders', true, 'LabelSource', 'foldernames');
+setNaturalDir = fullfile('Image', 'training', 'natural');
+setManmadeDir = fullfile('Image', 'training', 'manmade');
+imds = imageDataStore(image_directory, 'includeSubfolders', true, 'LabelSource', 'foldernames');
 testimds = imageDataStore(setTestDir, 'includeSubfolders', true, 'LabelSource', 'foldernames');
+naturalimds = imageDataStore(setNaturalDir, includeSubfolders', true, 'LabelSource', 'foldernames');
+manmadeimds = imageDataStore(setManmadeDir, includeSubfolders', true, 'LabelSource', 'foldernames');
 trainingSet = testimds;
 testSet = imds;
+naturalSet = naturalimds;
+manmadeSet = manmadeimds;
 testbag = bagOfFeatures(trainingSet);
 bag = bagOfFeatures(testSet);
+naturalbag = bagOfFeatures(naturalSet);
+manmadebag = bagOfFeatures(manmadeSet);
 categoryClassifier = trainImageCategoryClassifier(trainingSet, testbag);
-confidence = evaluate(categoryClassifier, bag); 
+manmadeCategoryClassifier = trainImageCategoryClassifier(manmadeSet, manmadebag);
+naturalCategoryClassifier = trainImageCategoryClassifier(naturalSet, naturalbag);
+naturalconfidence = evaluate(naturalCategoryClassifier, bag); 
+manmadeconfidence = evaluate(manmadeCategoryClassifier, bag);
+compare_bag(testbag, bag);
+categoryClassifier.Labels(labelIdx);
+
+if (naturalconfidence > manmadeconfidence)
+    is_natural = true
+else
+    is_natural = false
+end 
+    is_natural
+    
 end
