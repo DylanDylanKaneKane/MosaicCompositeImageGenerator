@@ -28,7 +28,7 @@ categoryClassifier.Labels(labelIdx);
 if (naturalconfidencemean > manmadeconfidencemean)
     is_natural = true;
 else
-    is_natural = false;
+    is_natural = false
 end 
     is_natural
     
