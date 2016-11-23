@@ -1,4 +1,4 @@
-function image_classifier (is_natural) = image_classifier (image_directory)
+function image_classifier
 
 setTestDir = fullfile('Image','training');
 setNaturalDir = fullfile('Image', 'training', 'natural');
@@ -22,7 +22,6 @@ naturalconfidence = evaluate(naturalCategoryClassifier, bag);
 naturalconfidencemean = mean(diag(naturalconfidence));
 manmadeconfidence = evaluate(manmadeCategoryClassifier, bag);
 manmadeconfidencemean = mean(diag(manmadeconfidence));
-compare_bag(testbag, bag);
 categoryClassifier.Labels(labelIdx);
 
 if (naturalconfidencemean > manmadeconfidencemean)
