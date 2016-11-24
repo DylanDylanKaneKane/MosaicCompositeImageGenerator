@@ -1,4 +1,4 @@
-function image_classifier
+function image_classifier()
 
 setTestDir = fullfile('Image','training');
 setNaturalDir = fullfile('Image', 'training', 'natural');

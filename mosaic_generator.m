@@ -45,14 +45,15 @@ function mosaic_generator(tiles_x, tiles_y, image, is_part_c, is_natural)
                 sim = abs((r - test_image_colours(avg))) + abs((g - test_image_colours(avg+1))) + abs((b - test_image_colours(avg+2)));
                 if sim < closest
                     if is_part_c == false
-                    closest = sim;
-                    closest_image = strcat(image_directory, directory(ceil(avg/3)).name);
+                        closest = sim;
+                        closest_image = strcat(image_directory, directory(ceil(avg/3)).name);
                     elseif is_part_c == true && is_natural == true && strfind(directory(ceil(avg/3)).name, 'nsun')
-                    closest = sim;
-                    closest_image = strcat(image_directory, directory(ceil(avg/3)).name,'msun');
+                        closest = sim;
+                        closest_image = strcat(image_directory, directory(ceil(avg/3)).name,'msun');
                     elseif is_part_c == true && is_natural == false && strfind(directory(cell(avg/3)).name, 'msun')
-                    closest = sim;
-                    closest_image = strcat(image_directory, directory(ceil(avg/3)).name);
+                        closest = sim;
+                        closest_image = strcat(image_directory, directory(ceil(avg/3)).name);
+                    end
                 end
             end
             closest_img = imread(closest_image);
