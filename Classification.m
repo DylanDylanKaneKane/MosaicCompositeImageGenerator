@@ -1,4 +1,4 @@
-function classification = Classification
+function Classification (image)
 
         %---The code between these lines is from the tester, for use in
         %obtaining the most similar images, to determine natural vs
@@ -10,8 +10,8 @@ function classification = Classification
         most_close_image = '';
         directory = dir('Image\training');
         
-        test_img = imread(test_image);
-        imshow(test_img)
+        test_img = imread(image);
+        imshow(image)
         %the first two elements of the dir array(on windows) will be . and
         %.. this code willstrcat(test_image_directory, file.name)strcat(test_image_directory, file.name)strcat(test_image_directory, file.name)order to remove these values from the array.
         directory(1) = [];
@@ -25,19 +25,20 @@ function classification = Classification
                 most_close_image = current_image;
             end
         end
-        
-        
-    	most_close_image
         toc
         
         %------------------%
         
         createBagOfFeatures(test_img, test_image_directory)
         if is_natural(most_close_image) == true
-            classification = 'natural';
-        else 
-            classification = 'manmade';
+            Classification = 'natural';
+        elseif image_classifier == true
+            Classification = 'natural';
+        else
+            Classification = 'manmade';
         end
+        
+        Classification
     
 
 end
