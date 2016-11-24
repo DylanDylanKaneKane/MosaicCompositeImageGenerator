@@ -1,4 +1,6 @@
 function mosaic_generator(tiles_x, tiles_y, image, is_part_c, is_natural)
+    
+%This function create the composition image, based on the closest image
     tic
     image_directory = 'Image\training\';
     directory = dir(image_directory);
